@@ -26,15 +26,31 @@
 def operation(symbol):
     if symbol == '*':
         return '*'
-    else:
-        print('Wrong symbol')
+    elif symbol == '+':
+        return '+'
     
-def print_operation_table(operation, num_rows=6, num_columns=6):
+def print_operation_table(operation, row_number, column_number, num_rows=6, num_columns=6):
     if operation == '*':
         array_2D = [[i*a for i in range(1,num_rows+1)] for a in range(1,num_columns+1)]
-        for each_a in array_2D:
-            print(*each_a)
+        for each_row in array_2D:
+            print(*each_row)
+        print(f'The result is {array_2D[column_number-1][row_number-1]}')
+    elif operation == '+':
+        array_2D = [[i for i in range(1,num_columns+1)] for a in range(1,num_rows+1)]
+        i = 1
+        for row in array_2D[1:]:
+            row[0] = row[i] 
+            for i_r, r_e in enumerate(row[1:]):
+                row[i_r+1] = row[0] + array_2D[0][i_r+1]
+            i += 1
+        for each_row in array_2D:
+            print(*each_row)
+        print(f'The result is {array_2D[column_number-1][row_number-1]}')
+
 
 
 symbol = input("Enter the operation's symbol: ")
-print_operation_table(symbol)
+row_number = int(input("Enter the row's number: "))
+column_number = int(input("Enter the columnm number: "))
+
+print_operation_table(symbol, row_number, column_number)
